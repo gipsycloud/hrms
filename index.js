@@ -1,11 +1,19 @@
 import express from 'express';
 import { progressBar } from './src/views/partials/progressbar.js';
 import { PORT, HOST } from './src/config/config.js';
+import { connectDatabase } from './src/database/index.js';
+
+//db connection
+connectDatabase();
 const app = express();
 
-
-app.get('/', (req, res) => {
-  res.send('Hello, World!');
+app.get('/', async (req, res) => {
+  try {
+    res.send('Hello World !');
+  } catch (err) {
+    console.error(err);
+    res.status(500).send('Database error');
+  }
 });
 
 progressBar();
