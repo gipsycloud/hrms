@@ -10,6 +10,8 @@ connectDatabase();
 
 const app = express();
 
+app.use(express.static('public'));
+
 // Templating Engine
 app.use(expressEjsLayouts);
 app.set('views', './src/views');
