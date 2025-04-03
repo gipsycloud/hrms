@@ -14,8 +14,17 @@ route.get("/", (req, res) => {
 route.get("/about", (req, res) => {
   res.render('about');
 });
-// route.get('*', (req, res) => {
-//   res.status(404).send('Page Not Found');
-// });
+
+route.get("/register", (req, res) => {
+  res.render('features/register');
+});
+
+route.get(/(.*)/, (req, res, next) => {
+  res.status(StatusCode.NOT_FOUND).render('404', {
+    title: "404 Not Found",
+    description: "The page you are looking for does not exist.",
+    keywords: "404, not found",
+  });
+});
 
 export default route;
