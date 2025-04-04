@@ -1,6 +1,9 @@
 import express from "express";
-import { StatusCode } from "../errors/StatusCode.js";
+import { registerController } from "../controllers/web/authController.js";
+
 const route = express.Router();
+
+route.get('/register', registerController)
 
 route.get("/", (req, res) => {
   const locals = {
@@ -15,8 +18,8 @@ route.get("/about", (req, res) => {
   res.render('about');
 });
 
-route.get("/register", (req, res) => {
-  res.render('features/register');
+route.get("/signin", (req, res) => {
+  res.render('auth/login');
 });
 
 route.get(/(.*)/, (req, res, next) => {

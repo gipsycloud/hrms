@@ -1,5 +1,6 @@
 import express from 'express';
-import route from './src/router/default.js';
+import webRoutes from './src/routes/webRoutes.js';
+import apiRoutes from './src/routes/apiRoutes.js';
 import { progressBar } from './src/views/partials/progressbar.js';
 import { PORT, HOST } from './src/config/config.js';
 import { connectDatabase } from './src/database/index.js';
@@ -7,6 +8,7 @@ import expressEjsLayouts from 'express-ejs-layouts';
 import { fileURLToPath } from 'url';
 import { dirname } from 'path';
 import path from 'path';
+import bodyParser from 'body-parser';
 
 const __filename = fileURLToPath(import.meta.url); // Get the file path
 const __dirname = dirname(__filename); // Get the directory path
@@ -27,12 +29,15 @@ app.use('/static', express.static(path.join(__dirname, 'node_modules/bootstrap/d
 
 // Templating Engine
 app.use(expressEjsLayouts);
+app.use(bodyParser.json());
+
 app.set('views', './src/views');
 app.set('layout', './layouts/main');
 app.set('view engine', 'ejs');
 
 // routes
-app.use("/", route);
+app.use("/", webRoutes);
+app.use("/api/V1", apiRoutes);
 progressBar();
 
 app.listen(PORT, () => {
