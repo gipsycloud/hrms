@@ -1,4 +1,5 @@
 import express from 'express';
+import cookieParser from 'cookie-parser';
 import webRoutes from './src/routes/webRoutes.js';
 import apiRoutes from './src/routes/apiRoutes.js';
 import { progressBar } from './src/views/partials/progressbar.js';
@@ -22,6 +23,7 @@ connectDatabase();
 const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(cookieParser());
 app.use(express.static('public'));
 
 // Serve static files
