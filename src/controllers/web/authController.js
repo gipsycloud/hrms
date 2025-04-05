@@ -70,7 +70,6 @@ export const loginpage = async (req, res) => {
 };
 
 export const loginController = async (req, res) => {
-  console.log("Login Controller", req.body);
   try {
     const { email, username, password } = req.body;
     const user = await prisma.user.findFirst({
@@ -93,13 +92,12 @@ export const loginController = async (req, res) => {
         error: "Invalid email or password",
       });
     }
-    const token = jwt.sign({ id: user.id }, process.env.JWT_SECRET, {
+    const token = jwt.sign({ id: user.id, username: user.username }, process.env.JWT_SECRET, {
       expiresIn: "1d",
     });
-    res.cookie("token", token, { httpOnly: true });  // user for cookie_parser 
+    res.cookie("token", token, { httpOnly: true });  // user for cookie_parser
+    // res.json({ token });
     res.redirect("dashboard");
-
-
   } catch (err) {
     console.error(err);
     res.status(StatusCode.INTERNAL_SERVER_ERROR).send("Internal Server Error");
@@ -108,6 +106,7 @@ export const loginController = async (req, res) => {
 
 export const dashboardController = async (req, res) => {
   try {
+    console.log("Authenticated User: ", req.user.username);
     if (!req.cookies.token) {
       return res.redirect("/login");
     }
@@ -116,6 +115,7 @@ export const dashboardController = async (req, res) => {
       description: "User Dashboard",
       keywords: "dashboard, user",
       success: "Login successful",
+      user: req.user,
       token: req.cookies.token,
     });
   } catch (err) {
