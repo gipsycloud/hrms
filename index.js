@@ -1,4 +1,5 @@
 import express from 'express';
+import session from 'express-session';
 import cookieParser from 'cookie-parser';
 import webRoutes from './src/routes/webRoutes.js';
 import apiRoutes from './src/routes/apiRoutes.js';
@@ -32,6 +33,18 @@ app.use('/static', express.static(path.join(__dirname, 'node_modules/bootstrap/d
 // Templating Engine
 app.use(expressEjsLayouts);
 app.use(bodyParser.json());
+
+// configure session middleware
+app.use(session({
+  secret: process.env.SESSION_SECRET,
+  resave: false,
+  saveUninitialized: true,
+  cookie: {
+    maxAge: 24 * 60 * 60 * 1000, // 24 hours
+    secure: false, // Set to true if using HTTPS
+    httpOnly: true,
+  },
+}));
 
 app.set('views', './src/views');
 app.set('layout', './layouts/main');

@@ -30,7 +30,7 @@
 .main-content {
   margin-left: 250px;
   padding: 20px;
-  width: 100%;
+  /* width: 100%; */
   transition: margin-left 0.3s;
 }
 

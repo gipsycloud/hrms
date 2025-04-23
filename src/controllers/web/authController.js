@@ -3,6 +3,7 @@ import bcrypt from "bcryptjs";
 import prisma from "../../database/index.js";
 import jwt from "jsonwebtoken";
 import { token } from "morgan";
+import { RedirectHelper } from "../../utils/redirectHelper.js";
 
 export const registerpage = async (req, res) => {
   try {
@@ -30,12 +31,7 @@ export const registerController = async (req, res) => {
     const { username, email, password } = req.body;
     // Validate input
     if (!username || !email || !password) {
-      const locals = {
-        title: "Register",
-        description: "Create a new account",
-        keywords: "register, create account",
-        error: "All fields are required.",
-      };
+      locals
       return res.render("auth/register", { locals });
     }
     const hashedPassword = await bcrypt.hash(password, 10);
@@ -96,26 +92,44 @@ export const loginController = async (req, res) => {
       expiresIn: "1d",
     });
     res.cookie("token", token, { httpOnly: true });  // user for cookie_parser
-    // res.json({ token });
-    res.redirect("dashboard");
+    // req.session.alert = {
+    //   type: "success",
+    //   message: "Login successful",
+    // }
+    res.redirect("/dashboard");
+
   } catch (err) {
     console.error(err);
     res.status(StatusCode.INTERNAL_SERVER_ERROR).send("Internal Server Error");
   }
 };
 
+export const logoutController = async (req, res) => {
+  try {
+    res.clearCookie("token");
+    // res.redirect("/login");  => for me
+    RedirectHelper.redirect(res, "/");
+  } catch (err) {
+    console.error(err);
+    res.status(StatusCode.INTERNAL_SERVER_ERROR).send("Internal Server Error");
+  }
+}
+
 export const dashboardController = async (req, res) => {
   try {
     console.log("Authenticated User: ", req.user.username);
     if (!req.cookies.token) {
-      return res.redirect("/login");
+      RedirectHelper.redirect(res, "/");
     }
+    // const alert = req.sesions.alert || null;
+    // req.session.alert = null;
     res.render("auth/dashboard", {
       title: "Dashboard",
       description: "User Dashboard",
       keywords: "dashboard, user",
       success: "Login successful",
       user: req.user,
+      // alert,
       token: req.cookies.token,
     });
   } catch (err) {

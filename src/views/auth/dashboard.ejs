@@ -1,47 +1,81 @@
 <div class="sidebar" id="sidebar">
   <div class="sidebar-header">
-    Admin Panel
+    <span class="me-3">Welcome, <%= user.username %></span>
   </div>
   <a href="#dashboard">Dashboard</a>
   <a href="#users">Users</a>
   <a href="#settings">Settings</a>
   <a href="#reports">Reports</a>
-  <a href="#logout">Logout</a>
+  <a href="/logout">Logout</a>
 </div>
 
 <!-- Main Content -->
 <div class="main-content" id="main-content">
-  <!-- Navbar -->
-  <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm">
-    <div class="container-fluid">
-      <button class="navbar-toggler" type="button" onclick="toggleSidebar()">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <a class="navbar-brand" href="#">Admin Dashboard</a>
-    </div>
-  </nav>
+  <div class="alert alert-success alert-dismissible fade show" role="alert"
+    style="position: fixed; top: 20px; right: 20px; z-index: 1000;">
+    <strong>Success!</strong> Your dashboard has been loaded successfully.
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+  </div>
 
-  <!-- Alert Message -->
-  <div class="container mt-4">
-    <div class="row justify-content-center">
-      <div class="col-12 col-md-8">
-        <div class="alert alert-success text-center" role="alert">
-          Welcome to the Admin Dashboard! Your settings have been updated successfully.
+  <!-- Header -->
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h2>Dashboard Overview</h2>
+    <div>
+      <a href="/logout">
+        <button class="btn btn-outline-primary btn-sm">Logout</button>
+    </div>
+    </a>
+  </div>
+
+  <!-- Stats Cards -->
+  <div class="row mb-4">
+    <div class="col-md-3">
+      <div class="card card-stats border-0 shadow-sm">
+        <div class="card-body">
+          <h5 class="card-title">Total</h5>
+          <h3 class="card-text">250</h3>
         </div>
       </div>
     </div>
-
-    <!-- Sample Content -->
-    <div class="row mt-4">
-      <div class="col-12">
-        <div class="card">
-          <div class="card-body">
-            <h5 class="card-title">Dashboard Overview</h5>
-            <p class="card-text">This is a sample content area for your admin dashboard. Add your widgets, tables, or
-              other components here.</p>
-          </div>
+    <div class="col-md-3">
+      <div class="card card-stats border-0 shadow-sm">
+        <div class="card-body">
+          <h5 class="card-title">Active Projects</h5>
+          <h3 class="card-text">12</h3>
         </div>
       </div>
     </div>
   </div>
-</div>
+
+  <!-- Recent Activities -->
+  <div class="row">
+    <div class="col-md-6">
+      <div class="card">
+        <div class="card-header">
+          <h5>Recent Activities</h5>
+        </div>
+        <div class="card-body">
+          <ul class="list-group list-group-flush">
+            <li class="list-group-item">New onboarded: John Doe</li>
+            <li class="list-group-item">Jane Smith</li>
+            <li class="list-group-item">Testing</li>
+            <li class="list-group-item">New job posting created</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="card">
+        <div class="card-header">
+          <h5>Quick Actions</h5>
+        </div>
+        <div class="card-body">
+          <button class="btn btn-primary mb-2 w-100">Add New</button>
+          <button class="btn btn-outline-primary mb-2 w-100">Process</button>
+          <button class="btn btn-outline-primary mb-2 w-100">Create Job Posting</button>
+          <button class="btn btn-outline-primary w-100">View Reports</button>
+        </div>
+      </div>
+    </div>
+
+  </div>
