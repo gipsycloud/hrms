@@ -3,9 +3,9 @@
     <span class="me-3">Welcome, <%= user.username %></span>
   </div>
   <a href="#dashboard">Dashboard</a>
+  <a href="/place">All Places</a>
   <a href="#users">Users</a>
   <a href="#settings">Settings</a>
-  <a href="#reports">Reports</a>
   <a href="/logout">Logout</a>
 </div>
 
@@ -70,7 +70,9 @@
           <h5>Quick Actions</h5>
         </div>
         <div class="card-body">
-          <button class="btn btn-primary mb-2 w-100">Add New</button>
+          <a href="/newplace">
+            <button class="btn btn-outline-primary mb-2 w-100">Add New Place</button>
+          </a>
           <button class="btn btn-outline-primary mb-2 w-100">Process</button>
           <button class="btn btn-outline-primary mb-2 w-100">Create Job Posting</button>
           <button class="btn btn-outline-primary w-100">View Reports</button>

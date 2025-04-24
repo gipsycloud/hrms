@@ -43,7 +43,7 @@ export const registerController = async (req, res) => {
       },
     })
     // await user.save()'
-    res.redirect("/login");
+    res.redirect("/");
     // res.render("auth/register", { locals });
   } catch (err) {
     console.error(err);
