@@ -3,7 +3,7 @@ import { StatusCode } from "../errors/StatusCode.js";
 
 const authenticateToken = (req, res, next) => {
   const token = req.cookies.token;
-  console.log("Cookies token: " + token);
+  // console.log("Cookies token: " + token);
   if (!token) {
     return res.redirect("/login");
     // return res.status(StatusCode.UNAUTHORIZED).json({ message: "Unauthorized" });
@@ -14,7 +14,7 @@ const authenticateToken = (req, res, next) => {
       return res.status(StatusCode.FORBIDDEN).json({ message: "Forbidden" });
     }
     req.user = user;
-    console.log("user" + user);
+    console.log("user: " + user.id);
     next();
   });
 }
