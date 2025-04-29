@@ -1,0 +1,50 @@
+<div class="d-flex flex-column flex-md-row align-left p-3 px-md-4 mb-3 bg-white">
+  <a href="/newplace">
+    <button class="btn btn-outline-primary mb-2">Add New Apartment</button>
+  </a>
+</div>
+
+<!-- alert message -->
+<%- include('../partials/alert.ejs') %>
+
+  <div class="table-responsive">
+    <table class="table table-striped table-sm">
+      <thead>
+        <tr>
+          <th scope="col">#id</th>
+          <th scope="col">street</th>
+          <th scope="col">apartment number</th>
+          <th scope="col">floor</th>
+          <th scope="col">direction</th>
+          <th scope="col">Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% apartments.forEach( (apartment, index)=> { %>
+          <tr>
+            <td>
+              <%= apartments.id %>
+            </td>
+            <td>
+              <%= apartments.street %>
+            </td>
+            <td>
+              <%= apartments.apartment_no %>
+            </td>
+            <td>
+              <%= apartments.floor %>
+            </td>
+            <td>
+              <%= apartments.direction %>
+            </td>
+            <td>
+              <a href="/apartment/edit/<%= apartment.id %>"><button class="btn btn-primary">Edit</button></a>
+              <form action="/apartment/delete/<%= apartment.id %>" method="POST" style="display:inline;">
+                <button type="submit" class="btn btn-danger">Delete</button>
+              </form>
+            </td>
+          </tr>
+          <% }); %>
+      </tbody>
+    </table>
+  </div>

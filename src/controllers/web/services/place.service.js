@@ -9,13 +9,6 @@ export const getAllPlaces = async () => {
         phone: true,
         address: true,
         description: true,
-        // user: {
-        //   select: {
-        //     id: true,
-        //     username: true,
-        //     email: true,
-        //   },
-        // },
       }
     });
     return places;

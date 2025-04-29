@@ -4,6 +4,7 @@ import { about, home } from "../controllers/web/webController.js";
 import authenticateToken from "../middlewares/authMiddleware.js";
 import { createPlace, createPlaceController, deletePlaceController, editPlace, getAll, updatePlaceController } from "../controllers/web/placeController.js";
 import { dashboardController } from "../controllers/web/dashboardController.js";
+import { getAllApartment } from "../controllers/web/apartmentController.js";
 
 const route = express.Router();
 
@@ -24,5 +25,6 @@ route.post('/create', authenticateToken, createPlaceController);
 route.get('/place/edit/:id', authenticateToken, editPlace);
 route.post('/place/edit/:id', authenticateToken, updatePlaceController);
 route.post('/place/delete/:id', authenticateToken, deletePlaceController);
+route.get('/apartment', authenticateToken, getAllApartment);
 
 export default route;
