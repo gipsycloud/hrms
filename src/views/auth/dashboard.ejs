@@ -1,86 +1,56 @@
-<div class="sidebar" id="sidebar">
-  <div class="sidebar-header">
-    <span class="me-3">Welcome, <%= user.username %></span>
+<!-- Stats Cards -->
+<div class="row mb-4">
+  <div class="col-md-3">
+    <div class="card card-stats border-0 shadow-sm">
+      <div class="card-body">
+        <h5 class="card-title">Total</h5>
+        <h3 class="card-text">
+          <%= place.length %>
+        </h3>
+      </div>
+    </div>
   </div>
-  <a href="#dashboard">Dashboard</a>
-  <a href="/place">All Places</a>
-  <a href="#users">Users</a>
-  <a href="#settings">Settings</a>
-  <a href="/logout">Logout</a>
+  <div class="col-md-3">
+    <div class="card card-stats border-0 shadow-sm">
+      <div class="card-body">
+        <h5 class="card-title">Active Projects</h5>
+        <h3 class="card-text">12</h3>
+      </div>
+    </div>
+  </div>
 </div>
 
-<!-- Main Content -->
-<div class="main-content" id="main-content">
-  <!-- <div class="alert alert-success alert-dismissible fade show" role="alert"
-    style="position: fixed; top: 20px; right: 20px; z-index: 1000;">
-    <strong>Success!</strong> Your dashboard has been loaded successfully.
-    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-  </div> -->
-
-  <!-- Header -->
-  <div class="d-flex justify-content-between align-items-center mb-4">
-    <div class="d-flex align-items-center">
-      <h2>Dashboard Overview</h2>
-    </div>
-    <div class="d-flex align-items-end">
-      <a href="/logout">
-        <button class="btn btn-outline-primary btn-sm">Logout</button>
-    </div>
-    </a>
-  </div>
-
-  <!-- Stats Cards -->
-  <div class="row mb-4">
-    <div class="col-md-3">
-      <div class="card card-stats border-0 shadow-sm">
-        <div class="card-body">
-          <h5 class="card-title">Total</h5>
-          <h3 class="card-text">250</h3>
-        </div>
+<!-- Recent Activities -->
+<div class="row">
+  <div class="col-md-6">
+    <div class="card">
+      <div class="card-header">
+        <h5>Recent Activities</h5>
+      </div>
+      <div class="card-body">
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item">New onboarded: John Doe</li>
+          <li class="list-group-item">Jane Smith</li>
+          <li class="list-group-item">Testing</li>
+          <li class="list-group-item">New job posting created</li>
+        </ul>
       </div>
     </div>
-    <div class="col-md-3">
-      <div class="card card-stats border-0 shadow-sm">
-        <div class="card-body">
-          <h5 class="card-title">Active Projects</h5>
-          <h3 class="card-text">12</h3>
-        </div>
+  </div>
+  <div class="col-md-6">
+    <div class="card">
+      <div class="card-header">
+        <h5>Quick Actions</h5>
+      </div>
+      <div class="card-body">
+        <a href="/newplace">
+          <button class="btn btn-outline-primary mb-2 w-100">Add New Place</button>
+        </a>
+        <button class="btn btn-outline-primary mb-2 w-100">Process</button>
+        <button class="btn btn-outline-primary mb-2 w-100">Create Job Posting</button>
+        <button class="btn btn-outline-primary w-100">View Reports</button>
       </div>
     </div>
   </div>
 
-  <!-- Recent Activities -->
-  <div class="row">
-    <div class="col-md-6">
-      <div class="card">
-        <div class="card-header">
-          <h5>Recent Activities</h5>
-        </div>
-        <div class="card-body">
-          <ul class="list-group list-group-flush">
-            <li class="list-group-item">New onboarded: John Doe</li>
-            <li class="list-group-item">Jane Smith</li>
-            <li class="list-group-item">Testing</li>
-            <li class="list-group-item">New job posting created</li>
-          </ul>
-        </div>
-      </div>
-    </div>
-    <div class="col-md-6">
-      <div class="card">
-        <div class="card-header">
-          <h5>Quick Actions</h5>
-        </div>
-        <div class="card-body">
-          <a href="/newplace">
-            <button class="btn btn-outline-primary mb-2 w-100">Add New Place</button>
-          </a>
-          <button class="btn btn-outline-primary mb-2 w-100">Process</button>
-          <button class="btn btn-outline-primary mb-2 w-100">Create Job Posting</button>
-          <button class="btn btn-outline-primary w-100">View Reports</button>
-        </div>
-      </div>
-    </div>
-
-  </div>
 </div>

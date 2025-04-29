@@ -78,13 +78,13 @@ export const loginController = async (req, res) => {
     });
 
     if (!user) {
-      return res.render("auth/login", {
+      return res.render("/", {
         error: "Invalid email or password",
       });
     }
     const PasswordValid = await bcrypt.compare(password, user.password);
     if (!PasswordValid) {
-      return res.render("auth/login", {
+      return res.render("/", {
         error: "Invalid email or password",
       });
     }

@@ -1,8 +1,9 @@
 import express from "express";
-import { registerpage, registerController, loginpage, loginController, dashboardController, logoutController } from "../controllers/web/authController.js";
+import { registerpage, registerController, loginpage, loginController, logoutController } from "../controllers/web/authController.js";
 import { about, home } from "../controllers/web/webController.js";
 import authenticateToken from "../middlewares/authMiddleware.js";
 import { createPlace, createPlaceController, deletePlaceController, editPlace, getAll, updatePlaceController } from "../controllers/web/placeController.js";
+import { dashboardController } from "../controllers/dashboardController.js";
 
 const route = express.Router();
 

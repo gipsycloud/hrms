@@ -40,6 +40,7 @@ export const createPlaceController = async (req, res) => {
   };
   try {
     const newPlace = await submitPlace(req.body);
+    req.session.alert = { type: 'success', message: 'Place created successfully!' };
     res.redirect('/place');
   } catch (err) {
     console.error(err);
@@ -68,16 +69,13 @@ export const editPlace = async (req, res) => {
 
 export const updatePlaceController = async (req, res) => {
   try {
-    const locals = {
-      title: "Update Place",
-      description: "Update a place",
-      keywords: "update, place",
-    };
     const placeId = req.params.id;
     const updatePlace = await updatedPlace(placeId, req.body);
     if (!updatePlace) {
       return res.status(StatusCode.NOT_FOUND).send("Place not found");
     }
+    req.session.alert = { type: 'success', message: 'Controller: Place updated successfully!' };
+    console.log("Update Place Controller", req.session.alert);
     // res.render("place", { place: updatePlace, user: req.user, locals, layout: "../views/layouts/admin_layout" });
     res.redirect('/place');
   } catch (err) {
@@ -97,6 +95,10 @@ export const deletePlaceController = async (req, res) => {
     const place = await prisma.place.delete({
       where: { id: req.params.id },
     });
+    if (!place) {
+      return res.status(StatusCode.NOT_FOUND).send("Place not found");
+    }
+    req.session.alert = { type: 'success', message: 'Place deleted successfully!' };
     // return place;
     res.redirect('/place');
   } catch (err) {
