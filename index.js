@@ -22,9 +22,9 @@ console.log('Directory:', __dirname);
 connectDatabase();
 
 const app = express();
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+app.use(express.json()); // middleware for parsing URL-encoded data
 app.use(cookieParser());
+
 app.use(express.static('public'));
 
 // Serve static files
@@ -32,7 +32,8 @@ app.use('/static', express.static(path.join(__dirname, 'node_modules/bootstrap/d
 
 // Templating Engine
 app.use(expressEjsLayouts);
-app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true })); // middleware for parsing URL-encoded data
+app.use(bodyParser.json());   // middleware for parsing JSON
 
 // configure session middleware
 app.use(session({
@@ -46,9 +47,21 @@ app.use(session({
   },
 }));
 
+app.use((req, res, next) => {
+  console.log('Session alert (before):', req.session.alert);
+  res.locals.alert = req.session.alert;
+  console.log('Locals alert:', res.locals.alert);
+  delete req.session.alert;
+  next();
+});
+
 app.set('views', './src/views');
 app.set('layout', './layouts/main');
 app.set('view engine', 'ejs');
+
+app.get('/check_session', (req, res) => {
+  res.json({ session: req.session });
+});
 
 // routes
 app.use("/", webRoutes);
