@@ -10,7 +10,7 @@
   <meta name="description" content="<%= locals.description %>">
   <link rel="stylesheet" href="/css/style.css">
   <link rel="stylesheet" href="/css/custom.css">
-  <!-- <link rel="stylesheet" href="/static/css/bootstrap.min.css"> -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css">
 
 </head>
 
@@ -21,18 +21,13 @@
     </div>
     <a href="/dashboard">Dashboard</a>
     <a href="/place">All Places</a>
-    <a href="#users">Users</a>
+    <a href="/profile">Users</a>
     <a href="#settings">Settings</a>
     <a href="/logout">Logout</a>
   </div>
 
   <!-- Main Content -->
   <div class="main-content" id="main-content">
-    <!-- <div class="alert alert-success alert-dismissible fade show" role="alert"
-      style="position: fixed; top: 20px; right: 20px; z-index: 1000;">
-      <strong>Success!</strong> Your dashboard has been loaded successfully.
-      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-    </div> -->
     <%- body %>
   </div>
   <script src="/js/script.js"></script>

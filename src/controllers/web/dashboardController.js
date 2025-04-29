@@ -1,9 +1,9 @@
-import prisma from "../database/index.js";
-import { StatusCode } from "../errors/StatusCode.js";
+import prisma from "../../database/index.js";
+import { StatusCode } from "../../errors/StatusCode.js";
 
 export const dashboardController = async (req, res) => {
   try {
-    console.log("User Dashboard: ", req.user.username)
+    console.log("User Dashboard: ", req.user.email)
     if (!req.cookies.token) {
       RedirectHelper.redirect(res, "/");
     }

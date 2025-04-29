@@ -52,7 +52,6 @@ app.use((req, res, next) => {
   res.locals.alert = req.session.alert;
   console.log('Locals alert:', res.locals.alert);
   delete req.session.alert;
-  // console.log('Session alert (after):', req.session.alert);
   next();
 });
 

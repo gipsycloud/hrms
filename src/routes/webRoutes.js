@@ -1,9 +1,9 @@
 import express from "express";
-import { registerpage, registerController, loginpage, loginController, logoutController } from "../controllers/web/authController.js";
+import { registerpage, registerController, loginpage, loginController, logoutController, profileController, changePasswordController } from "../controllers/web/authController.js";
 import { about, home } from "../controllers/web/webController.js";
 import authenticateToken from "../middlewares/authMiddleware.js";
 import { createPlace, createPlaceController, deletePlaceController, editPlace, getAll, updatePlaceController } from "../controllers/web/placeController.js";
-import { dashboardController } from "../controllers/dashboardController.js";
+import { dashboardController } from "../controllers/web/dashboardController.js";
 
 const route = express.Router();
 
@@ -12,9 +12,12 @@ route.get('/about', about);
 route.get('/register', registerpage);
 route.post('/register', registerController);
 route.get('/', loginpage);
+route.get('/login', loginpage);
 route.post('/login', loginController);
 route.get('/logout', logoutController);
+route.post('/changePassword', authenticateToken, changePasswordController)
 route.get('/dashboard', authenticateToken, dashboardController);
+route.get('/profile', authenticateToken, profileController)
 route.get('/place', authenticateToken, getAll);
 route.get('/newplace', authenticateToken, createPlace);
 route.post('/create', authenticateToken, createPlaceController);
