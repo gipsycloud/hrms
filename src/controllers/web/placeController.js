@@ -98,7 +98,7 @@ export const deletePlaceController = async (req, res) => {
     if (!place) {
       return res.status(StatusCode.NOT_FOUND).send("Place not found");
     }
-    req.session.alert = { type: 'success', message: 'Place deleted successfully!' };
+    req.session.alert = { type: 'warning', message: 'Place deleted successfully!' };
     // return place;
     res.redirect('/place');
   } catch (err) {
