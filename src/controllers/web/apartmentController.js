@@ -10,6 +10,14 @@ export const getAllApartment = async (req, res) => {
       keywords: "apartment, list",
     }
     const apartments = await getAllApartments();
+    // const placedata = await prisma.place.findMany({
+    //   where: { id: apartments.placeId },
+    //   select: {
+    //     id: true,
+    //     address: true,
+    //   }
+    // });
+    // console.log(placedata);
     res.render('apartment', { apartments, user: req.user, locals, layout: '../views/layouts/admin_layout' });
   } catch (err) {
     console.error(err);

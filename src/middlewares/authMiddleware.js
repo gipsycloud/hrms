@@ -4,35 +4,35 @@ import prisma from "../database/index.js";
 
 const authenticateToken = (req, res, next) => {
   const token = req.cookies.token;
-  // console.log("Cookies token: " + token);
   if (!token) {
     return res.redirect("/");
   }
 
-  jwt.verify(token, process.env.JWT_SECRET, async (err, user) => {
-    // if (err) {
-    //   return res.status(StatusCode.FORBIDDEN).json({ message: "Forbidden" });
-    // }
+  jwt.verify(token, process.env.JWT_SECRET, async (err, decoded) => {
+    if (err) {
+      return res.status(StatusCode.FORBIDDEN).json({ message: "Forbidden" });
+    }
+
     try {
-      const userId = jwt.decode(token).id;
+      // Fetch the user from the database using the ID from the decoded token
       const user = await prisma.user.findUnique({
-        where: {
-          id: userId,
-        },
+        where: { id: decoded.id },
       });
 
       if (!user) {
-        return res.status(StatusCode.UNAUTHORIZED).json({ message: "Unauthorized" });
+        return res.status(StatusCode.NOT_FOUND).json({ message: "User not found" });
       }
-      res.user = user;
-      console.log("User in authmiddleware: " + user.email);
-    } catch (err) {
-      console.error(err);
-      return res.status(StatusCode.INTERNAL_SERVER_ERROR).send("Internal Server Error");
+
+      // Attach the complete user object to the request
+      req.user = user;
+      console.log("current user: " + user.email);
+      next();
+    } catch (error) {
+      console.error("Error fetching user:", error);
+      return res
+        .status(StatusCode.INTERNAL_SERVER_ERROR)
+        .json({ message: "Internal server error" });
     }
-    req.user = user;
-    console.log("current user: " + user.email);
-    next();
   });
 }
 

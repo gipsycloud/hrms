@@ -13,9 +13,10 @@
         <tr>
           <th scope="col">#id</th>
           <th scope="col">street</th>
-          <th scope="col">apartment number</th>
+          <th scope="col">apartment no</th>
           <th scope="col">floor</th>
           <th scope="col">direction</th>
+          <th scopt="col">address</th>
           <th scope="col">Action</th>
         </tr>
       </thead>
@@ -36,6 +37,9 @@
             </td>
             <td>
               <%= apartment.direction %>
+            </td>
+            <td>
+              <%= apartment.place.address %>
             </td>
             <td>
               <a href="/apartment/<%= apartment.id %>"><button class="btn btn-sm btn-info">Show</button></a>

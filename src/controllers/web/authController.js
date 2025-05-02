@@ -4,6 +4,7 @@ import prisma from "../../database/index.js";
 import jwt from "jsonwebtoken";
 import { RedirectHelper } from "../../utils/redirectHelper.js";
 import { changePassword } from "./services/auth.service.js";
+import { sendWelcomeEmail } from "../../utils/emailSender.js";
 
 export const registerpage = async (req, res) => {
   try {
@@ -43,6 +44,7 @@ export const registerController = async (req, res) => {
       },
     })
     // await user.save()'
+    sendWelcomeEmail(email, username);
     res.redirect("/");
     // res.render("auth/register", { locals });
   } catch (err) {

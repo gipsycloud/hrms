@@ -31,8 +31,13 @@
         <div class="mb-3">
           <label class="visually" for="specificSizeSelect">Place Information</label>
           <select class="form-select" id="specificSizeSelect" name="placeId" required>
+            <option value="<%= apartment.place.id %>" selected disabled>
+              <span class="text-secondary">
+                <%= apartment.place.address %> - Phone no: <%= apartment.place.phone %>
+              </span>
+            </option>
             <% places.forEach(place=> { %>
-              <option value="<%= place.id %>">
+              <option value="<%= place.id %>" <%=apartment.placeId===place.id ? 'selected' : '' %>>
                 <%= place.address %> - Phone no: <%= place.phone %>
               </option>
               <% }) %>

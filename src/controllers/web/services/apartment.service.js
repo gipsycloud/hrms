@@ -9,6 +9,12 @@ export const getAllApartments = async () => {
         apartment_no: true,
         floor: true,
         direction: true,
+        place: {
+          select: {
+            id: true,
+            address: true
+          }
+        }
       }
     });
     return apartments;
