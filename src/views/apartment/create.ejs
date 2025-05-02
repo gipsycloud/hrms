@@ -1,0 +1,45 @@
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+      <h2 class="mb-4">
+        <%= locals.title %>
+      </h2>
+      <form action="/createapartment" method="POST">
+        <div class="mb-3">
+          <label for="street" class="form-label">Street</label>
+          <input type="text" class="form-control" id="street" name="street" placeholder="">
+        </div>
+
+        <div class="mb-3">
+          <label for="apartment_no" class="form-label">Apartment No</label>
+          <input type="text" class="form-control" id="apartment_no" name="apartment_no" placeholder="">
+        </div>
+
+        <div class="mb-3">
+          <label for="floor" class="form-label">Floor</label>
+          <input type="text" class="form-control" id="floor" name="floor" placeholder="">
+        </div>
+
+        <div class="mb-3">
+          <label for="direction" class="form-label">Direction</label>
+          <input type="text" class="form-control" id="direction" name="direction" placeholder="">
+        </div>
+
+        <div class="mb-3">
+          <div class="form-group">
+            <label class="visually-hidden" for="specificSizeSelect">Preference</label>
+            <select class="form-select" id="specificSizeSelect" name="placeId" required>
+              <% places.forEach(place=> { %>
+                <option value="<%= place.id %>">
+                  <%= place.address %> - Phone no: <%= place.phone %>
+                </option>
+                <% }) %>
+            </select>
+          </div>
+        </div>
+        <!-- Submit Button -->
+        <button type="submit" class="btn btn-primary">Create Apartment</button>
+      </form>
+    </div>
+  </div>
+</div>

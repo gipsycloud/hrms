@@ -1,58 +1,81 @@
-<!-- Stats Cards -->
-<div class="row mb-4">
-  <div class="col-md-3">
-    <div class="card card-stats border-0 shadow-sm">
-      <div class="card-body">
-        <h5 class="card-title">Total</h5>
-        <h3 class="card-text">
-          <%= place.length %>
-        </h3>
+<%- include('../partials/alert.ejs') %>
+  <!-- Stats Cards -->
+  <div class="row mb-4">
+    <div class="col-md-3">
+      <div class="card card-stats border-0 shadow-sm">
+        <div class="card-body">
+          <h5 class="card-title">Active Place</h5>
+          <h3 class="card-text">
+            <b class="text-danger">
+              <%= place.length %>
+            </b>
+          </h3>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="card card-stats border-0 shadow-sm">
+        <div class="card-body">
+          <h5 class="card-title">Total Apartment</h5>
+          <h3 class="card-text">
+            <b class="text-danger">
+              <%= apartment.length %>
+            </b>
+          </h3>
+        </div>
       </div>
     </div>
   </div>
-  <div class="col-md-3">
-    <div class="card card-stats border-0 shadow-sm">
-      <div class="card-body">
-        <h5 class="card-title">Active Projects</h5>
-        <h3 class="card-text">12</h3>
-      </div>
-    </div>
-  </div>
-</div>
 
-<!-- Recent Activities -->
-<div class="row">
-  <div class="col-md-6">
-    <div class="card">
-      <div class="card-header">
-        <h5>Recent Activities</h5>
-      </div>
-      <div class="card-body">
-        <ul class="list-group list-group-flush">
-          <li class="list-group-item">New onboarded: John Doe</li>
-          <li class="list-group-item">Jane Smith</li>
-          <li class="list-group-item">Testing</li>
-          <li class="list-group-item">New job posting created</li>
-        </ul>
+  <!-- Recent Activities -->
+  <div class="row">
+    <div class="col-md-6">
+      <div class="card">
+        <div class="card-header">
+          <h5>Recent Activities</h5>
+        </div>
+        <div class="card-body">
+          <ul class="list-group list-group-flush">
+            <li class="list-group-item">
+              Street : &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <strong class="text-primary">
+                <%= getlatestApartment.street %>
+              </strong>
+            </li>
+            <li class="list-group-item">
+              Apartment No : &nbsp; &nbsp; <strong class="text-primary">
+                <%= getlatestApartment.apartment_no %>
+              </strong>
+            </li>
+            <li class="list-group-item">
+              Floor : &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <strong class="text-primary">
+                <%= getlatestApartment.floor %>
+              </strong>
+            </li>
+            <li class="list-group-item">
+              Direction : &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <strong class="text-primary">
+                <%= getlatestApartment.direction %>
+              </strong>
+            </li>
+          </ul>
+        </div>
       </div>
     </div>
-  </div>
-  <div class="col-md-6">
-    <div class="card">
-      <div class="card-header">
-        <h5>Quick Actions</h5>
-      </div>
-      <div class="card-body">
-        <a href="/newplace">
-          <button class="btn btn-outline-primary mb-2 w-100">New Place</button>
-        </a>
-        <a href="/newplace">
-          <button class="btn btn-outline-primary mb-2 w-100">New Apartment</button>
-        </a>
-        <!-- <button class="btn btn-outline-primary mb-2 w-100">Create Job Posting</button>
+    <div class="col-md-6">
+      <div class="card">
+        <div class="card-header">
+          <h5>Quick Actions</h5>
+        </div>
+        <div class="card-body">
+          <a href="/newplace">
+            <button class="btn btn-outline-primary mb-2 w-100">New Place</button>
+          </a>
+          <a href="/newplace">
+            <button class="btn btn-outline-primary mb-2 w-100">New Apartment</button>
+          </a>
+          <!-- <button class="btn btn-outline-primary mb-2 w-100">Create Job Posting</button>
         <button class="btn btn-outline-primary w-100">View Reports</button> -->
+        </div>
       </div>
     </div>
-  </div>
 
-</div>
+  </div>

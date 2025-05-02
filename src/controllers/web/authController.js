@@ -93,10 +93,10 @@ export const loginController = async (req, res) => {
       expiresIn: "1d",
     });
     res.cookie("token", token, { httpOnly: true });  // user for cookie_parser
-    // req.session.alert = {
-    //   type: "success",
-    //   message: "Login successful",
-    // }
+    req.session.alert = {
+      type: "success",
+      message: "Login successful",
+    }
     res.redirect("/dashboard");
 
   } catch (err) {

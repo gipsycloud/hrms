@@ -1,4 +1,6 @@
+import { join } from "@prisma/client/runtime/library";
 import prisma from "../../../database/index.js";
+import { where } from "sequelize";
 
 export const getAllPlaces = async () => {
   try {
@@ -11,6 +13,7 @@ export const getAllPlaces = async () => {
         description: true,
       }
     });
+    // console.log(places);
     return places;
   } catch (err) {
     throw new Error("Error fetching places: " + err.message);
@@ -27,6 +30,15 @@ export const getById = async (placeid) => {
         phone: true,
         address: true,
         description: true,
+        apartments: {
+          select: {
+            id: true,
+            street: true,
+            apartment_no: true,
+            floor: true,
+            direction: true,
+          }
+        }
       }
     });
     return place;

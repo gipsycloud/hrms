@@ -17,6 +17,24 @@ export const getAll = async (req, res) => {
   }
 }
 
+export const getPlaceByIdController = async (req, res) => {
+  try {
+    const locals = {
+      title: "Place Details",
+      description: "Details of a place",
+      keywords: "place, details",
+    };
+    const place = await getById(req.params.id);
+    if (!place) {
+      return res.status(StatusCode.NOT_FOUND).send("Place not found");
+    }
+    res.render("place/show", { place, user: req.user, locals, layout: "../views/layouts/admin_layout" });
+  } catch (err) {
+    console.error(err);
+    res.status(StatusCode.INTERNAL_SERVER_ERROR).send("Internal Server Error");
+  }
+};
+
 export const createPlace = async (req, res) => {
   try {
     const locals = {

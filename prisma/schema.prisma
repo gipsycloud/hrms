@@ -26,6 +26,7 @@ model Place {
   description            String?
   createdAt              DateTime @default(now())
   updatedAt              DateTime @updatedAt
+  apartments             Apartment[]
 }
 
 model Apartment {
@@ -36,4 +37,8 @@ model Apartment {
   direction              String
   createdAt              DateTime @default(now())
   updatedAt              DateTime @updatedAt
+  placeId                String?         
+  place                  Place?  @relation(fields: [placeId], references: [id])
+
+  @@index([placeId])
 }

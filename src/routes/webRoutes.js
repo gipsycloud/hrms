@@ -2,9 +2,9 @@ import express from "express";
 import { registerpage, registerController, loginpage, loginController, logoutController, profileController, changePasswordController } from "../controllers/web/authController.js";
 import { about, home } from "../controllers/web/webController.js";
 import authenticateToken from "../middlewares/authMiddleware.js";
-import { createPlace, createPlaceController, deletePlaceController, editPlace, getAll, updatePlaceController } from "../controllers/web/placeController.js";
+import { createPlace, createPlaceController, deletePlaceController, editPlace, getAll, getPlaceByIdController, updatePlaceController } from "../controllers/web/placeController.js";
 import { dashboardController } from "../controllers/web/dashboardController.js";
-import { getAllApartment } from "../controllers/web/apartmentController.js";
+import { getAllApartment, createApartment, createApartmentController, editApartment, updateApartmentController, getApartmentByIdController } from "../controllers/web/apartmentController.js";
 
 const route = express.Router();
 
@@ -12,19 +12,29 @@ const route = express.Router();
 route.get('/about', about);
 route.get('/register', registerpage);
 route.post('/register', registerController);
+
 route.get('/', loginpage);
 route.get('/login', loginpage);
 route.post('/login', loginController);
 route.get('/logout', logoutController);
-route.post('/changePassword', authenticateToken, changePasswordController)
+route.post('/changePassword', authenticateToken, changePasswordController);
+
 route.get('/dashboard', authenticateToken, dashboardController);
-route.get('/profile', authenticateToken, profileController)
+route.get('/profile', authenticateToken, profileController);
+
 route.get('/place', authenticateToken, getAll);
+route.get('/place/:id', authenticateToken, getPlaceByIdController);
 route.get('/newplace', authenticateToken, createPlace);
 route.post('/create', authenticateToken, createPlaceController);
 route.get('/place/edit/:id', authenticateToken, editPlace);
 route.post('/place/edit/:id', authenticateToken, updatePlaceController);
 route.post('/place/delete/:id', authenticateToken, deletePlaceController);
+
 route.get('/apartment', authenticateToken, getAllApartment);
+route.get('/newapartment', authenticateToken, createApartment);
+route.post('/createapartment', authenticateToken, createApartmentController);
+route.get('/apartment/edit/:id', authenticateToken, editApartment);
+route.post('/apartment/edit/:id', authenticateToken, updateApartmentController);
+route.get('/apartment/:id', authenticateToken, getApartmentByIdController);
 
 export default route;
