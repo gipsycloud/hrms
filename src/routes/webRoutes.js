@@ -8,12 +8,11 @@ import { getAllApartment, createApartment, createApartmentController, editApartm
 
 const route = express.Router();
 
-// route.get('/', home);
+route.get('/', home);
 route.get('/about', about);
 route.get('/register', registerpage);
 route.post('/register', registerController);
 
-route.get('/', loginpage);
 route.get('/login', loginpage);
 route.post('/login', loginController);
 route.get('/logout', logoutController);

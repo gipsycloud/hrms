@@ -11,6 +11,10 @@ import { fileURLToPath } from 'url';
 import { dirname } from 'path';
 import path from 'path';
 import bodyParser from 'body-parser';
+import cors from 'cors';
+import redis from 'redis';
+import { Server } from 'socket.io';
+import { createServer } from 'http';
 
 const __filename = fileURLToPath(import.meta.url); // Get the file path
 const __dirname = dirname(__filename); // Get the directory path
@@ -24,6 +28,38 @@ connectDatabase();
 const app = express();
 app.use(express.json()); // middleware for parsing URL-encoded data
 app.use(cookieParser());
+app.use(cors());
+
+const server = createServer(app);
+const io = new Server(server, {
+  cors: {
+    orgin: "*",
+    methods: ["GET", "POST"],
+  }
+});
+
+const redisClient = redis.createClient();
+redisClient.on('error', (err) => console.log('Redis Client Error', err));
+
+//socket.io connection
+io.on('connection', (socket) => {
+  consolole.log('user connected:', socket.id);
+  socket.on('join', (userId) => {
+    socket.join(userId);
+    console.log(`User ${userId} joined the room`);
+  });
+
+  socket.disconnect(() => {
+    console.log(`User ${socket.id} disconnected`);
+  }
+  );
+})
+
+app.post('/notify', (req, res) => {
+  const { userId, message } = req.body;
+  io.to(userId).emit('notification', message);
+  res.status(200).json({ success: true, message: 'Notification sent' });
+});
 
 app.use(express.static('public'));
 
