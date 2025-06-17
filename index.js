@@ -41,6 +41,20 @@ const io = new Server(server, {
 const redisClient = redis.createClient();
 redisClient.on('error', (err) => console.log('Redis Client Error', err));
 
+app.post('/notify', (req, res) => {
+  console.log("\n📨 Received notification request:", {
+    headers: req.headers,
+    body: req.body
+  });
+  const { userId, message } = req.body;
+  io.to(userId).emit('notification', message);
+  res.setHeader('X-Powered-By', 'Express');
+  console.log(`Notification sent to user ${userId}:`, message);
+  console.log('Response headers:', res.getHeaders());
+  console.log('Response body:', { success: true, message: 'Notification sent' });
+  res.status(200).json({ success: true, message: 'Notification sent' });
+});
+
 //socket.io connection
 io.on('connection', (socket) => {
   consolole.log('user connected:', socket.id);
@@ -53,13 +67,10 @@ io.on('connection', (socket) => {
     console.log(`User ${socket.id} disconnected`);
   }
   );
+  socket.on('error', (err) => {
+    console.error("💥 Socket error:", err);
+  });
 })
-
-app.post('/notify', (req, res) => {
-  const { userId, message } = req.body;
-  io.to(userId).emit('notification', message);
-  res.status(200).json({ success: true, message: 'Notification sent' });
-});
 
 app.use(express.static('public'));
 
