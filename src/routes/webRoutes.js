@@ -1,6 +1,6 @@
 import express from "express";
 import { registerpage, registerController, loginpage, loginController, logoutController, profileController, changePasswordController } from "../controllers/web/authController.js";
-import { about, home } from "../controllers/web/webController.js";
+import { about, home, notify } from "../controllers/web/webController.js";
 import authenticateToken from "../middlewares/authMiddleware.js";
 import { createPlace, createPlaceController, deletePlaceController, editPlace, getAll, getPlaceByIdController, updatePlaceController } from "../controllers/web/placeController.js";
 import { dashboardController } from "../controllers/web/dashboardController.js";
@@ -10,6 +10,7 @@ const route = express.Router();
 
 route.get('/', home);
 route.get('/about', about);
+route.get('/notify', notify);
 route.get('/register', registerpage);
 route.post('/register', registerController);
 

@@ -97,7 +97,7 @@ img {
   -webkit-justify-content: center;
   -ms-flex-pack: center;
   justify-content: center;
-  background-image: url("/img/header.jpg");
+  background-image: url("/images/header.jpg");
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center center;

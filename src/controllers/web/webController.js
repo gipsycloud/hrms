@@ -28,6 +28,10 @@ export const home = async (req, res) => {
   }
 };
 
+export const notify = async (req, res) => {
+  res.render("notify")
+}
+
 
 // route.get(/(.*)/, (req, res, next) => {
 //   res.status(StatusCode.NOT_FOUND).render('404', {

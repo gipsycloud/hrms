@@ -13,8 +13,8 @@ import path from 'path';
 import bodyParser from 'body-parser';
 import cors from 'cors';
 import redis from 'redis';
-import { Server } from 'socket.io';
 import { createServer } from 'http';
+import { initializeSocket } from './src/utils/notification.js';
 
 const __filename = fileURLToPath(import.meta.url); // Get the file path
 const __dirname = dirname(__filename); // Get the directory path
@@ -30,47 +30,30 @@ app.use(express.json()); // middleware for parsing URL-encoded data
 app.use(cookieParser());
 app.use(cors());
 
-const server = createServer(app);
-const io = new Server(server, {
-  cors: {
-    orgin: "*",
-    methods: ["GET", "POST"],
-  }
-});
+const httpServer = createServer(app);
+const io = initializeSocket(httpServer); // Initialize socket.io with the server
 
 const redisClient = redis.createClient();
 redisClient.on('error', (err) => console.log('Redis Client Error', err));
 
 app.post('/notify', (req, res) => {
-  console.log("\n📨 Received notification request:", {
-    headers: req.headers,
-    body: req.body
+  // console.log("\n📨 Received notification request:", {
+  //   headers: req.headers,
+  //   body: req.body
+  // });
+  ; // Emit the notification to all connected clients
+  // redisClient.publish('notifications', JSON.stringify(req.body)); // Publish the notification to Redis channel
+  // console.log(`Notification sent to user in node ${userId}: ${message}`);
+  console.log(req.body.message, req.body.userId);
+  
+  const userId = req.body.userId; // Assuming the user ID is sent in the request body
+  res.status(200).json({ 
+    success: true, 
+    message:  req.body || 'Notification sent successfully',
+    userId: userId,
+    data: req.body
   });
-  const { userId, message } = req.body;
-  io.to(userId).emit('notification', message);
-  res.setHeader('X-Powered-By', 'Express');
-  console.log(`Notification sent to user ${userId}:`, message);
-  console.log('Response headers:', res.getHeaders());
-  console.log('Response body:', { success: true, message: 'Notification sent' });
-  res.status(200).json({ success: true, message: 'Notification sent' });
 });
-
-//socket.io connection
-io.on('connection', (socket) => {
-  consolole.log('user connected:', socket.id);
-  socket.on('join', (userId) => {
-    socket.join(userId);
-    console.log(`User ${userId} joined the room`);
-  });
-
-  socket.disconnect(() => {
-    console.log(`User ${socket.id} disconnected`);
-  }
-  );
-  socket.on('error', (err) => {
-    console.error("💥 Socket error:", err);
-  });
-})
 
 app.use(express.static('public'));
 
